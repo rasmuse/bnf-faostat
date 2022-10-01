@@ -68,10 +68,21 @@ fao_crop_data = pd.DataFrame(
 #%%
 
 grain_legumes_results = grainleg.estimate_fixation(fao_crop_data)
-grain_legumes_results["Crop_N_fixed_MgN"].to_csv(
-    OUTDATA_DIR / "grain-legumes-symbiotic-fixation-MgN.csv"
-)
 grain_legumes_results
+
+
+#%%
+grain_legumes_fixation = (
+    grain_legumes_results["Crop_N_fixed_MgN"]
+    .rename("Main")
+    .to_frame()
+    .assign(
+        Low=lambda d: d.Main * 0.9,
+        High=lambda d: d.Main * 1.1,
+    )[["Low", "Main", "High"]]
+)
+grain_legumes_fixation.to_csv(OUTDATA_DIR / "grain-legumes-symbiotic-fixation-MgN.csv")
+grain_legumes_fixation
 
 #%%
 herridge_table_2 = grainleg.calc_herridge_table_2(grain_legumes_results)
