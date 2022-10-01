@@ -174,6 +174,13 @@ summary_cropcat
 
 # %%
 
+summary_country = summary_country_cropcat.groupby(["Area Code", "Year"]).sum()
+summary_country.to_csv(OUTDATA_DIR / "total-fixation-country-MgN.csv")
+summary_country
+
+
+# %%
+
 fig, ax = plt.subplots()
 
 colors = dict(
@@ -207,3 +214,34 @@ ax.set_xlim(1960)
 ax.legend(loc="upper left", bbox_to_anchor=(1.05, 1))
 
 fig.savefig(OUTDATA_DIR / "results-summary-cropcat.pdf", bbox_inches="tight")
+
+#%%
+
+tr_area_code_m49 = pd.read_csv(
+    INDATA_DIR / "faostat_definitions_country_region_2022-10-01.csv",
+    index_col="Country Code",
+)["M49 Code"]
+tr_area_code_m49
+
+#%%
+
+fixation_by_m49_code = (
+    summary_country.join(tr_area_code_m49, on="Area Code")
+    .reset_index()
+    .set_index(["M49 Code", "Year"])["Main"]
+)
+assert fixation_by_m49_code.index.is_unique
+fixation_by_m49_code
+
+#%%
+
+DATA_REQUEST_STARTCOL = 1
+requested_data = (
+    pd.read_excel(INDATA_DIR / "Data_Request.xlsx", sheet_name="Data")
+    .iloc[:, DATA_REQUEST_STARTCOL:]
+    .set_index("m49")
+    .fillna(fixation_by_m49_code.unstack())
+)
+
+requested_data.to_csv(OUTDATA_DIR / "FAO_requested_total_BNF_MgN.csv")
+requested_data
