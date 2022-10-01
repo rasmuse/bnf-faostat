@@ -213,7 +213,7 @@ for cropcat, data in plot_data_all.groupby("Crop category"):
 
 ax.grid(True)
 ax.set_title(
-    "Biological N fixation globally (Tg N/y)\nCropland excluding forage legumes"
+    "Biological N fixation in global cropland (Tg N/y)\nexcluding forage legumes"
 )
 ax.set_ylim(0)
 ax.set_xlim(1960)
