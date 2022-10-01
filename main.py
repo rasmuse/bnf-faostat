@@ -29,6 +29,13 @@ fao_country_codes
 
 #%%
 
+fao_item_codes = pd.read_csv(
+    INDATA_DIR / "Items_Primary_Production.csv", encoding="cp1252"
+)["Item Code"].unique()
+fao_item_codes
+
+#%%
+
 # Read the FAOSTAT production data
 
 
@@ -55,6 +62,7 @@ fao_production_data = (
         ]
     )
     .reindex(fao_country_codes, level="Area Code")
+    .reindex(fao_item_codes, level="Item Code")
     .Value
 )
 
@@ -134,7 +142,6 @@ summary_country_crop = (
             nonsymbiotic_fixation,
         ]
     )
-    .dropna(how="all")
     .groupby(["Area Code", "Area", "Item Code", "Item", "Year"])
     .sum()
 )
