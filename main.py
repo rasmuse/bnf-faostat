@@ -63,7 +63,7 @@ fao_crop_data = pd.DataFrame(
             FAO_ELEMENT_PRODUCTION, level="Element Code"
         ),
     }
-)
+).dropna(how="all")
 
 #%%
 
