@@ -85,7 +85,9 @@ fao_crop_data = pd.DataFrame(
 
 #%%
 
-grain_legumes_results = grainleg.estimate_fixation(fao_crop_data)
+grain_legumes_results = grainleg.estimate_fixation(
+    fao_crop_data.loc[fao_crop_data["Production_Mg"] > 0]
+)
 grain_legumes_results
 
 
@@ -183,14 +185,18 @@ summary_country
 
 fig, ax = plt.subplots()
 
+
+plot_data_all = (
+    summary_cropcat.unstack().T.assign(TOTAL=lambda d: d.sum(axis=1)).T.stack()
+)
 colors = dict(
     zip(
-        summary_cropcat.index.unique("Crop category"),
+        plot_data_all.index.unique("Crop category"),
         matplotlib.cm.get_cmap("tab10").colors,
     )
 )
 
-for cropcat, data in summary_cropcat.groupby("Crop category"):
+for cropcat, data in plot_data_all.groupby("Crop category"):
     plot_data = data.droplevel("Crop category").mul(1e-6)
     ax.fill_between(
         plot_data.index,
