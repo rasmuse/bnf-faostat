@@ -3,6 +3,8 @@
 import pandas as pd
 from pathlib import Path
 import zipfile
+import matplotlib.pyplot as plt
+import matplotlib.cm
 import grainleg
 import nonsymbiotic
 
@@ -17,6 +19,13 @@ if OUTDATA_DIR.exists():
     print(f"Not doing anything because outdata directory exists: '{OUTDATA_DIR}'")
     exit(1)
 OUTDATA_DIR.mkdir(exist_ok=False)
+
+#%%
+
+fao_country_codes = pd.read_csv(
+    INDATA_DIR / "faostat_definitions_country_group_2022-10-01.csv"
+)["Country Code"].unique()
+fao_country_codes
 
 #%%
 
@@ -45,6 +54,7 @@ fao_production_data = (
             "Year",
         ]
     )
+    .reindex(fao_country_codes, level="Area Code")
     .Value
 )
 
@@ -63,7 +73,7 @@ fao_crop_data = pd.DataFrame(
             FAO_ELEMENT_PRODUCTION, level="Element Code"
         ),
     }
-).dropna(how="all")
+)
 
 #%%
 
@@ -95,8 +105,98 @@ herridge_table_4.to_csv(OUTDATA_DIR / "results-like-herridge-table-4.csv")
 herridge_table_4
 
 #%%
-nonsymbiotic_results = nonsymbiotic.estimate_fixation_MgN(
+nonsymbiotic_fixation = nonsymbiotic.estimate_fixation_MgN(
     fao_crop_data["Area_harvested_ha"]
+).dropna(how="all")
+nonsymbiotic_fixation.to_csv(OUTDATA_DIR / "nonsymbiotic-fixation-MgN.csv")
+nonsymbiotic_fixation
+
+#%%
+
+specific_summary_categories = {
+    "Grain legumes": set(grain_legumes_fixation.dropna().index.unique("Item")),
+    "Rice": {"Rice"},
+    "Sugar cane": {"Sugar cane"},
+}
+
+tr_crop_item_to_summary_category = pd.Series(
+    index=fao_crop_data.index.unique("Item"), data="Other", name="Crop category"
 )
-nonsymbiotic_results.to_csv(OUTDATA_DIR / "nonsymbiotic-fixation-MgN.csv")
-nonsymbiotic_results
+for category, names in specific_summary_categories.items():
+    tr_crop_item_to_summary_category[names] = category
+tr_crop_item_to_summary_category
+
+#%%
+summary_country_crop = (
+    pd.concat(
+        [
+            grain_legumes_fixation,
+            nonsymbiotic_fixation,
+        ]
+    )
+    .dropna(how="all")
+    .groupby(["Area Code", "Area", "Item Code", "Item", "Year"])
+    .sum()
+)
+summary_country_crop.to_csv(OUTDATA_DIR / "total-fixation-country-crop-MgN.csv")
+summary_country_crop
+
+# %%
+
+summary_country_cropcat = (
+    summary_country_crop.join(tr_crop_item_to_summary_category)
+    .groupby(["Area Code", "Area", "Crop category", "Year"])
+    .sum()
+)
+summary_country_cropcat.to_csv(OUTDATA_DIR / "total-fixation-country-cropcat-MgN.csv")
+summary_country_cropcat
+
+# %%
+
+summary_crop = summary_country_crop.groupby(["Item Code", "Item", "Year"]).sum()
+summary_crop.to_csv(OUTDATA_DIR / "total-fixation-crop-MgN.csv")
+summary_crop
+
+
+# %%
+
+summary_cropcat = summary_country_cropcat.groupby(["Crop category", "Year"]).sum()
+summary_cropcat.to_csv(OUTDATA_DIR / "total-fixation-cropcat-MgN.csv")
+summary_cropcat
+
+
+# %%
+
+fig, ax = plt.subplots()
+
+colors = dict(
+    zip(
+        summary_cropcat.index.unique("Crop category"),
+        matplotlib.cm.get_cmap("tab10").colors,
+    )
+)
+
+for cropcat, data in summary_cropcat.groupby("Crop category"):
+    plot_data = data.droplevel("Crop category").mul(1e-6)
+    ax.fill_between(
+        plot_data.index,
+        plot_data["Low"],
+        plot_data["High"],
+        color=colors[cropcat],
+        alpha=0.2,
+    )
+    ax.plot(
+        plot_data["Main"],
+        label=cropcat,
+        color=colors[cropcat],
+    )
+
+ax.grid(True)
+ax.set_title(
+    "Biological N fixation globally (Tg N/y)\nCropland excluding forage legumes"
+)
+ax.set_ylim(0)
+ax.set_xlim(1960)
+ax.legend(loc="upper left", bbox_to_anchor=(1.05, 1))
+
+fig.savefig(OUTDATA_DIR / "results-summary-cropcat.pdf", bbox_inches="tight")
