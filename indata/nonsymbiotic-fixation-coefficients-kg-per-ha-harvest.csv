@@ -1,0 +1,169 @@
+Item Code,Item,Low,Main,High
+15,Wheat,2,5,15
+44,Barley,2,5,15
+56,Maize (corn),2,5,15
+71,Rye,2,5,15
+75,Oats,2,5,15
+108,Cereals n.e.c.,2,5,15
+116,Potatoes,2,5,15
+157,Sugar beet,2,5,15
+176,"Beans, dry",0,0,0
+187,"Peas, dry",0,0,0
+201,"Lentils, dry",0,0,0
+211,Other pulses n.e.c.,0,0,0
+222,"Walnuts, in shell",2,5,15
+225,"Hazelnuts, in shell",2,5,15
+333,Linseed,2,5,15
+358,Cabbages,2,5,15
+388,Tomatoes,2,5,15
+393,Cauliflowers and broccoli,2,5,15
+397,Cucumbers and gherkins,2,5,15
+403,"Onions and shallots, dry (excluding dehydrated)",2,5,15
+406,Green garlic,2,5,15
+417,"Peas, green",2,5,15
+426,Carrots and turnips,2,5,15
+463,"Other vegetables, fresh n.e.c.",2,5,15
+515,Apples,2,5,15
+521,Pears,2,5,15
+523,Quinces,2,5,15
+526,Apricots,2,5,15
+530,Sour cherries,2,5,15
+531,Cherries,2,5,15
+534,Peaches and nectarines,2,5,15
+536,Plums and sloes,2,5,15
+558,Other berries and fruits of the genus vaccinium n.e.c.,2,5,15
+560,Grapes,2,5,15
+567,Watermelons,2,5,15
+569,Figs,2,5,15
+603,"Other tropical fruits, n.e.c.",2,5,15
+619,"Other fruits, n.e.c.",2,5,15
+826,Unmanufactured tobacco,2,5,15
+1717,"Cereals, Total",
+1720,"Roots and Tubers, Total",
+1723,Sugar Crops Primary,
+1726,"Pulses, Total",
+1729,"Treenuts, Total",
+1735,Vegetables Primary,
+1738,Fruit Primary,
+27,Rice,20,25,40
+79,Millet,2,5,15
+156,Sugar cane,20,25,100
+221,"Almonds, in shell",2,5,15
+223,"Pistachios, in shell",2,5,15
+234,"Other nuts (excluding wild edible nuts and groundnuts), in shell, n.e.c.",2,5,15
+260,Olives,2,5,15
+267,Sunflower seed,2,5,15
+289,Sesame seed,2,5,15
+328,"Seed cotton, unginned",2,5,15
+490,Oranges,2,5,15
+512,"Other citrus fruit, n.e.c.",2,5,15
+541,Other stone fruits,2,5,15
+568,Cantaloupes and other melons,2,5,15
+711,"Anise, badian, coriander, cumin, caraway, fennel and juniper berries, raw",2,5,15
+723,"Other stimulant, spice and aromatic crops, n.e.c.",2,5,15
+1804,"Citrus Fruit, Total"
+83,Sorghum,2,5,15
+181,"Broad beans and horse beans, dry",0,0,0
+205,Vetches,0,0,0
+220,"Chestnuts, in shell",2,5,15
+236,Soya beans,0,0,0
+372,Lettuce and chicory,2,5,15
+373,Spinach,2,5,15
+394,"Pumpkins, squash and gourds",2,5,15
+399,Eggplants (aubergines),2,5,15
+401,"Chillies and peppers, green (Capsicum spp. and Pimenta spp.)",2,5,15
+402,"Onions and shallots, green",2,5,15
+407,Leeks and other alliaceous vegetables,2,5,15
+414,"Other beans, green",2,5,15
+420,"Broad beans and horse beans, green",2,5,15
+430,Okra,2,5,15
+495,"Tangerines, mandarins, clementines",2,5,15
+497,Lemons and limes,2,5,15
+544,Strawberries,2,5,15
+577,Dates,2,5,15
+677,Hop cones,2,5,15
+97,Triticale,2,5,15
+191,"Chick peas, dry",0,0,0
+242,"Groundnuts, excluding shelled",0,0,0
+270,Rape or colza seed,2,5,15
+366,Artichokes,2,5,15
+461,Locust beans (carobs),2,5,15
+486,Bananas,2,5,15
+507,Pomelos and grapefruits,2,5,15
+689,"Chillies and peppers, dry (Capsicum spp., Pimenta spp.), raw",2,5,15
+122,Sweet potatoes,2,5,15
+125,"Cassava, fresh",2,5,15
+217,"Cashew nuts, in shell",2,5,15
+254,Oil palm fruit,2,5,15
+265,Castor oil seeds,2,5,15
+574,Pineapples,2,5,15
+656,"Coffee, green",2,5,15
+661,Cocoa beans,2,5,15
+782,"Kenaf, and other textile bast fibres, raw or retted",2,5,15
+789,"Sisal, raw",2,5,15
+136,Taro,2,5,15
+137,Yams,2,5,15
+571,"Mangoes, guavas and mangosteens",2,5,15
+101,Canary seed,2,5,15
+210,Lupins,0,0,0
+275,Tung nuts,2,5,15
+280,Safflower seed,2,5,15
+367,Asparagus,2,5,15
+423,String beans,2,5,15
+572,Avocados,2,5,15
+600,Papayas,2,5,15
+667,Tea leaves,2,5,15
+671,Maté leaves,2,5,15
+773,"Flax, processed but not spun",2,5,15
+821,"Other fibre crops, raw, n.e.c.",2,5,15
+195,"Cow peas, dry",2,5,15
+292,Mustard seed,2,5,15
+446,Green corn (maize),2,5,15
+449,Mushrooms and truffles,2,5,15
+547,Raspberries,2,5,15
+550,Currants,2,5,15
+552,Blueberries,2,5,15
+587,Persimmons,2,5,15
+592,Kiwi fruit,2,5,15
+89,Buckwheat,2,5,15
+103,Mixed grain,2,5,15
+296,Poppy seed,2,5,15
+339,"Other oil seeds, n.e.c.",2,5,15
+549,Gooseberries,2,5,15
+777,"True hemp, raw or retted",2,5,15
+197,"Pigeon peas, dry",
+249,"Coconuts, in shell",2,5,15
+489,Plantains and cooking bananas,2,5,15
+459,Chicory roots,2,5,15
+161,Other sugar crops n.e.c.,2,5,15
+226,Areca nuts,2,5,15
+720,"Ginger, raw",2,5,15
+780,"Jute, raw or retted",2,5,15
+836,Natural rubber in primary forms,2,5,15
+149,"Edible roots and tubers with high starch or inulin content, n.e.c., fresh",2,5,15
+702,"Nutmeg, mace, cardamoms, raw",2,5,15
+92,Quinoa,2,5,15
+687,"Pepper (Piper spp.), raw",2,5,15
+591,Cashewapple,2,5,15
+788,"Ramie, raw or retted",2,5,15
+135,Yautia,2,5,15
+336,Hempseed,2,5,15
+542,Other pome fruits,2,5,15
+554,Cranberries,2,5,15
+748,"Peppermint, spearmint",2,5,15
+203,"Bambara beans, dry",
+224,Kola nuts,2,5,15
+299,Melonseed,2,5,15
+693,"Cinnamon and cinnamon-tree flowers, raw",2,5,15
+698,"Cloves (whole stems), raw",2,5,15
+305,Tallowtree seeds,2,5,15
+692,"Vanilla, raw",2,5,15
+800,"Agave fibres, raw, n.e.c.",2,5,15
+378,Cassava leaves,2,5,15
+809,"Abaca, manila hemp, raw",2,5,15
+94,Fonio,2,5,15
+263,Karite nuts (sheanuts),2,5,15
+754,"Pyrethrum, dried flowers",2,5,15
+310,Kapok fruit,2,5,15
+277,Jojoba seeds,2,5,15
+216,"Brazil nuts, in shell",2,5,15

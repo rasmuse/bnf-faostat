@@ -4,6 +4,7 @@ import pandas as pd
 from pathlib import Path
 import zipfile
 import grainleg
+import nonsymbiotic
 
 #%%
 
@@ -67,6 +68,9 @@ fao_crop_data = pd.DataFrame(
 #%%
 
 grain_legumes_results = grainleg.estimate_fixation(fao_crop_data)
+grain_legumes_results["Crop_N_fixed_MgN"].to_csv(
+    OUTDATA_DIR / "grain-legumes-symbiotic-fixation-MgN.csv"
+)
 grain_legumes_results
 
 #%%
@@ -78,3 +82,10 @@ peoples_table_2
 peoples_table_4 = grainleg.calc_peoples_table_4(grain_legumes_results)
 peoples_table_4.to_csv(OUTDATA_DIR / "results-like-peoples-table-4.csv")
 peoples_table_4
+
+#%%
+nonsymbiotic_results = nonsymbiotic.estimate_fixation_MgN(
+    fao_crop_data["Area_harvested_ha"]
+)
+nonsymbiotic_results.to_csv(OUTDATA_DIR / "nonsymbiotic-fixation-MgN.csv")
+nonsymbiotic_results
