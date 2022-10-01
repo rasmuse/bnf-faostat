@@ -10,19 +10,19 @@ INDATA_DIR = Path(__file__).parent / "indata"
 
 #%%
 
-# Mapping of crop names from Peoples & Herridge to FAOSTAT item codes
+# Mapping of crop names from Herridge et al. (2022) to FAOSTAT item codes
 
-tr_crops_fao_to_peoples = (
-    pd.read_csv(INDATA_DIR / "crop-names-peoples.csv")
+tr_crops_fao_to_herridge = (
+    pd.read_csv(INDATA_DIR / "crop-names-herridge.csv")
     .dropna()
-    .set_index("Item Code")["Crop Peoples et al."]
+    .set_index("Item Code")["Crop Herridge et al."]
 )
 
-tr_crops_fao_to_peoples
+tr_crops_fao_to_herridge
 
 # %%
 
-# Peoples & Herridge publications distinguish Europe and Brazil from the rest
+# Herridge et al. (2022) distinguish Europe and Brazil from the rest
 # of the world (ROW). Here, mapping FAOSTAT country codes to these groups based on
 # FAOSTAT nomenclature of what's included in "Europe".
 
@@ -41,14 +41,14 @@ europe_country_codes = fao_country_groups.loc[
     code for code, name in fao_countries["Country"].items() if name == "Brazil"
 )
 
-regions = pd.Series(index=fao_countries.index, data="ROW", name="Region Peoples et al.")
+regions = pd.Series(index=fao_countries.index, data="ROW", name="Region Herridge et al.")
 regions.update({c: "Europe" for c in europe_country_codes})
 regions.update({brazil_code: "Brazil"})
 regions.to_frame().join(fao_countries["Country"])
 
 # %%
 
-# Implement the model closely following Peoples et al. (2022)
+# Implement the model closely following Herridge et al. (2022)
 
 
 def estimate_fixation(fao_crop_data):
@@ -64,7 +64,7 @@ def estimate_fixation(fao_crop_data):
                 "Area Code" (FAOSTAT area code)
     """
     result = (
-        fao_crop_data.join(tr_crops_fao_to_peoples, on="Item Code", how="inner")
+        fao_crop_data.join(tr_crops_fao_to_herridge, on="Item Code", how="inner")
         .join(regions, on="Area Code", how="inner")
         .assign(
             **{
@@ -90,20 +90,20 @@ def get_yield(d):
 
 def get_HI(d):
     k_dict = {
-        **{crop: 0.0804 for crop in tr_crops_fao_to_peoples},
+        **{crop: 0.0804 for crop in tr_crops_fao_to_herridge},
         "Soybean": 0.1178,
         "Groundnut": 0.1343,
         "Pigeonpea": 0.0517,
     }
     m_dict = {
-        **{crop: 0.2839 for crop in tr_crops_fao_to_peoples},
+        **{crop: 0.2839 for crop in tr_crops_fao_to_herridge},
         "Soybean": 0.2775,
         "Groundnut": 0.2614,
         "Pigeonpea": 0.1647,
     }
 
-    k = d["Crop Peoples et al."].map(k_dict)
-    m = d["Crop Peoples et al."].map(m_dict)
+    k = d["Crop Herridge et al."].map(k_dict)
+    m = d["Crop Herridge et al."].map(m_dict)
 
     return k * np.log(d["Yield_Mg_per_ha"]) + m
 
@@ -114,11 +114,11 @@ def get_shoot_DM(d):
 
 def get_N_conc_shoots(d):
     k_dict = {
-        **{crop: 0 for crop in tr_crops_fao_to_peoples},
+        **{crop: 0 for crop in tr_crops_fao_to_herridge},
         "Soybean": -0.118,
     }
     m_dict = {
-        **{crop: 2.5 for crop in tr_crops_fao_to_peoples},
+        **{crop: 2.5 for crop in tr_crops_fao_to_herridge},
         "Soybean": 3.913,
         "Groundnut": 2.7,
         "Chickpea": 1.9,
@@ -126,8 +126,8 @@ def get_N_conc_shoots(d):
         "Lupin": 2.7,
     }
 
-    k = d["Crop Peoples et al."].map(k_dict)
-    m = d["Crop Peoples et al."].map(m_dict)
+    k = d["Crop Herridge et al."].map(k_dict)
+    m = d["Crop Herridge et al."].map(m_dict)
 
     return (k * d["Shoot_DM_Mg"] / d["Area_harvested_ha"] + m) / 100
 
@@ -138,11 +138,11 @@ def get_shoot_N(d):
 
 def get_BG_N_factor(d):
     m_dict = {
-        **{crop: 1.4 for crop in tr_crops_fao_to_peoples},
+        **{crop: 1.4 for crop in tr_crops_fao_to_herridge},
         "Chickpea": 2.0,
         "Pigeonpea": 2.0,
     }
-    return d["Crop Peoples et al."].map(m_dict)
+    return d["Crop Herridge et al."].map(m_dict)
 
 
 def get_total_crop_N(d):
@@ -151,7 +151,7 @@ def get_total_crop_N(d):
 
 def get_Ndfa(d):
     default_Ndfa_by_crop = {
-        **{crop: 62 for crop in tr_crops_fao_to_peoples},
+        **{crop: 62 for crop in tr_crops_fao_to_herridge},
         "Soybean": 61,
         "Common bean": 38,
         "Pigeonpea": 74,
@@ -163,10 +163,10 @@ def get_Ndfa(d):
         ("Soybean", "Brazil"): 78,
     }
 
-    result = d["Crop Peoples et al."].map(default_Ndfa_by_crop)
+    result = d["Crop Herridge et al."].map(default_Ndfa_by_crop)
     for (crop, region), Ndfa_value in region_specific_Ndfa.items():
-        rows = (d["Crop Peoples et al."] == crop) & (
-            d["Region Peoples et al."] == region
+        rows = (d["Crop Herridge et al."] == crop) & (
+            d["Region Herridge et al."] == region
         )
         result[rows] = Ndfa_value
 
@@ -179,14 +179,14 @@ def get_crop_N_fixed(d):
 
 #%%
 
-# Function to reproduce a table similar to Peoples et al. (2022) Table 2
+# Function to reproduce a table similar to Herridge et al. (2022) Table 2
 # to check that results agree.
 
 
-SOYBEANS_CODE = {v: k for k, v in tr_crops_fao_to_peoples.items()}["Soybean"]
+SOYBEANS_CODE = {v: k for k, v in tr_crops_fao_to_herridge.items()}["Soybean"]
 
 
-def calc_peoples_table_2(result):
+def calc_herridge_table_2(result):
     result = result.reset_index()
     assert result.set_index(["Area", "Year", "Item Code"]).index.is_unique
     d = (
@@ -210,9 +210,9 @@ def calc_peoples_table_2(result):
 
 #%%
 
-# Function to reproduce a table similar to Peoples et al. (2022) Table 4
+# Function to reproduce a table similar to Herridge et al. (2022) Table 4
 
-tr_fao_group_to_peoples_group = pd.Series(
+tr_fao_group_to_herridge_group = pd.Series(
     {
         "South America": "South, Central America",
         "Central America": "South, Central America",
@@ -225,13 +225,13 @@ tr_fao_group_to_peoples_group = pd.Series(
 ).rename("Region")
 
 
-def calc_peoples_table_4(result):
+def calc_herridge_table_4(result):
     result = result.reset_index()
     assert result.set_index(["Area", "Year", "Item Code"]).index.is_unique
     tr_item_code_to_legume_category = pd.Series(
         {
             code: (name if name in {"Soybean", "Groundnut"} else "Pulses")
-            for code, name in tr_crops_fao_to_peoples.items()
+            for code, name in tr_crops_fao_to_herridge.items()
         }
     ).rename("Legume category")
 
@@ -240,7 +240,7 @@ def calc_peoples_table_4(result):
             fao_country_groups.set_index("Country Code")["Country Group"],
             on="Area Code",
         )
-        .join(tr_fao_group_to_peoples_group, on="Country Group")
+        .join(tr_fao_group_to_herridge_group, on="Country Group")
         .join(
             tr_item_code_to_legume_category,
             on="Item Code",

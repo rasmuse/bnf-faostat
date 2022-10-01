@@ -74,14 +74,14 @@ grain_legumes_results["Crop_N_fixed_MgN"].to_csv(
 grain_legumes_results
 
 #%%
-peoples_table_2 = grainleg.calc_peoples_table_2(grain_legumes_results)
-peoples_table_2.to_csv(OUTDATA_DIR / "results-like-peoples-table-2.csv")
-peoples_table_2
+herridge_table_2 = grainleg.calc_herridge_table_2(grain_legumes_results)
+herridge_table_2.to_csv(OUTDATA_DIR / "results-like-herridge-table-2.csv")
+herridge_table_2
 
 #%%
-peoples_table_4 = grainleg.calc_peoples_table_4(grain_legumes_results)
-peoples_table_4.to_csv(OUTDATA_DIR / "results-like-peoples-table-4.csv")
-peoples_table_4
+herridge_table_4 = grainleg.calc_herridge_table_4(grain_legumes_results)
+herridge_table_4.to_csv(OUTDATA_DIR / "results-like-herridge-table-4.csv")
+herridge_table_4
 
 #%%
 nonsymbiotic_results = nonsymbiotic.estimate_fixation_MgN(
