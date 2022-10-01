@@ -122,9 +122,9 @@ nonsymbiotic_fixation
 #%%
 
 specific_summary_categories = {
-    "Grain legumes": set(grain_legumes_fixation.dropna().index.unique("Item")),
-    "Rice": {"Rice"},
-    "Sugar cane": {"Sugar cane"},
+    "Grain legumes": list(set(grain_legumes_fixation.dropna().index.unique("Item"))),
+    "Rice": ["Rice"],
+    "Sugar cane": ["Sugar cane"],
 }
 
 tr_crop_item_to_summary_category = pd.Series(
