@@ -243,7 +243,7 @@ fixation_by_m49_code
 
 DATA_REQUEST_STARTCOL = 1
 requested_data = (
-    pd.read_excel(INDATA_DIR / "Data_Request.xlsx", sheet_name="Data")
+    pd.read_excel(INDATA_DIR / "Data_Request_2.xlsx", sheet_name="Data")
     .iloc[:, DATA_REQUEST_STARTCOL:]
     .set_index("m49")
     .fillna(fixation_by_m49_code.unstack())
