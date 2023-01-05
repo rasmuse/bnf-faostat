@@ -13,7 +13,7 @@ The output dataset is open access, released under the Creative Commons Attributi
 
 If you use the data, please cite it:
 
-Einarsson, Rasmus. (2023). Biological nitrogen fixation in cropland (v1.2). Zenodo. [https://doi.org/10.5281/zenodo.7505978](https://doi.org/10.5281/zenodo.7505978)
+Einarsson, Rasmus. (2023). Biological nitrogen fixation in cropland (v1.3). Zenodo. [https://doi.org/10.5281/zenodo.7505978](https://doi.org/10.5281/zenodo.7505978)
 
 ## References
 
