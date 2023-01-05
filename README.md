@@ -9,11 +9,11 @@ This code was used to estimate cropland biological nitrogen fixation for the 202
 
 ## How to access the data
 
-The output dataset is open access, released under the Creative Commons Attribution 4.0 International License. Download here: [https://doi.org/10.5281/zenodo.7133340](https://doi.org/10.5281/zenodo.7133340)
+The output dataset is open access, released under the Creative Commons Attribution 4.0 International License. Download here: [https://doi.org/10.5281/zenodo.7505978](https://doi.org/10.5281/zenodo.7505978)
 
 If you use the data, please cite it:
 
-Einarsson, Rasmus. (2023). Biological nitrogen fixation in cropland (v1.2). Zenodo. [https://doi.org/10.5281/zenodo.7133340](https://doi.org/10.5281/zenodo.7133340)
+Einarsson, Rasmus. (2023). Biological nitrogen fixation in cropland (v1.2). Zenodo. [https://doi.org/10.5281/zenodo.7505978](https://doi.org/10.5281/zenodo.7505978)
 
 ## References
 
