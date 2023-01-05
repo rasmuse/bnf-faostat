@@ -29,7 +29,7 @@ Einarsson, Rasmus. (2023). Biological nitrogen fixation in cropland (v1.2). Zeno
 
 # Code and outputs overview
 
-Source code to produce the outputs is published at [https://doi.org/10.5281/zenodo.7133336](https://doi.org/10.5281/zenodo.7133336) under open-source license.
+This source code is published at [https://doi.org/10.5281/zenodo.7133336](https://doi.org/10.5281/zenodo.7133336).
 
 The fixation estimation is implemented in Python and R. It has been verified that the two implementations produce the same results (except for very small differences (~1e-8) due to floating-point imprecision).
 
