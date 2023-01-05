@@ -137,6 +137,19 @@ for category, names in specific_summary_categories.items():
 tr_crop_item_to_summary_category
 
 #%%
+
+tr_area_code_m49 = pd.read_csv(
+    INDATA_DIR / "faostat_definitions_country_region_2022-10-01.csv",
+    index_col="Country Code",
+)["M49 Code"]
+tr_area_code_m49
+
+
+def join_m49_code_and_write_csv(d, file_name):
+    d.join(tr_area_code_m49, on="Area Code").to_csv(OUTDATA_DIR / file_name)
+
+
+#%%
 summary_country_crop = (
     pd.concat(
         [
@@ -147,7 +160,9 @@ summary_country_crop = (
     .groupby(["Area Code", "Area", "Item Code", "Item", "Year"])
     .sum()
 )
-summary_country_crop.to_csv(OUTDATA_DIR / "total-fixation-country-crop-MgN.csv")
+summary_country_crop.pipe(
+    join_m49_code_and_write_csv, "total-fixation-country-crop-MgN.csv"
+)
 summary_country_crop
 
 # %%
@@ -157,7 +172,9 @@ summary_country_cropcat = (
     .groupby(["Area Code", "Area", "Crop category", "Year"])
     .sum()
 )
-summary_country_cropcat.to_csv(OUTDATA_DIR / "total-fixation-country-cropcat-MgN.csv")
+summary_country_cropcat.pipe(
+    join_m49_code_and_write_csv, "total-fixation-country-cropcat-MgN.csv"
+)
 summary_country_cropcat
 
 # %%
@@ -177,7 +194,7 @@ summary_cropcat
 # %%
 
 summary_country = summary_country_cropcat.groupby(["Area Code", "Year"]).sum()
-summary_country.to_csv(OUTDATA_DIR / "total-fixation-country-MgN.csv")
+summary_country.pipe(join_m49_code_and_write_csv, "total-fixation-country-MgN.csv")
 summary_country
 
 
@@ -220,34 +237,3 @@ ax.set_xlim(1960)
 ax.legend(loc="upper left", bbox_to_anchor=(1.05, 1))
 
 fig.savefig(OUTDATA_DIR / "results-summary-cropcat.pdf", bbox_inches="tight")
-
-#%%
-
-tr_area_code_m49 = pd.read_csv(
-    INDATA_DIR / "faostat_definitions_country_region_2022-10-01.csv",
-    index_col="Country Code",
-)["M49 Code"]
-tr_area_code_m49
-
-#%%
-
-fixation_by_m49_code = (
-    summary_country.join(tr_area_code_m49, on="Area Code")
-    .reset_index()
-    .set_index(["M49 Code", "Year"])["Main"]
-)
-assert fixation_by_m49_code.index.is_unique
-fixation_by_m49_code
-
-#%%
-
-DATA_REQUEST_STARTCOL = 1
-requested_data = (
-    pd.read_excel(INDATA_DIR / "Data_Request_2.xlsx", sheet_name="Data")
-    .iloc[:, DATA_REQUEST_STARTCOL:]
-    .set_index("m49")
-    .fillna(fixation_by_m49_code.unstack())
-)
-
-requested_data.to_csv(OUTDATA_DIR / "FAO_requested_total_BNF_MgN.csv")
-requested_data
