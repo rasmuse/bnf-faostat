@@ -1,3 +1,5 @@
 __pycache__
 .venv
-outdata
+outdata_r
+outdata_python
+cropland_bnf.zip

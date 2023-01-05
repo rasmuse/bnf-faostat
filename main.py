@@ -1,3 +1,7 @@
+# Estimation of
+# - symbiotic fixation in grain legumes
+# - nonsymbiotic fixation in some crops
+
 #%%
 
 import pandas as pd
@@ -13,7 +17,7 @@ import nonsymbiotic
 FAO_ELEMENT_AREA_HARVESTED = 5312
 FAO_ELEMENT_PRODUCTION = 5510
 INDATA_DIR = Path(__file__).parent / "indata"
-OUTDATA_DIR = Path(__file__).parent / "outdata"
+OUTDATA_DIR = Path(__file__).parent / "outdata_python"
 
 if OUTDATA_DIR.exists():
     print(f"Not doing anything because outdata directory exists: '{OUTDATA_DIR}'")
