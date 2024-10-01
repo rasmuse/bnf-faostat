@@ -2,7 +2,7 @@
 # - symbiotic fixation in grain legumes
 # - nonsymbiotic fixation in some crops
 
-#%%
+# %%
 
 import pandas as pd
 from pathlib import Path
@@ -12,7 +12,7 @@ import matplotlib.cm
 import grainleg
 import nonsymbiotic
 
-#%%
+# %%
 
 FAO_ELEMENT_AREA_HARVESTED = 5312
 FAO_ELEMENT_PRODUCTION = 5510
@@ -24,21 +24,21 @@ if OUTDATA_DIR.exists():
     exit(1)
 OUTDATA_DIR.mkdir(exist_ok=False)
 
-#%%
+# %%
 
 fao_country_codes = pd.read_csv(
     INDATA_DIR / "faostat_definitions_country_group_2022-10-01.csv"
 )["Country Code"].unique()
 fao_country_codes
 
-#%%
+# %%
 
 fao_item_codes = pd.read_csv(
     INDATA_DIR / "Items_Primary_Production.csv", encoding="cp1252"
 )["Item Code"].unique()
 fao_item_codes
 
-#%%
+# %%
 
 # Read the FAOSTAT production data
 
@@ -72,7 +72,7 @@ fao_production_data = (
 
 fao_production_data
 
-#%%
+# %%
 
 # Extract crop production data
 
@@ -110,24 +110,24 @@ grain_legumes_fixation = (
 grain_legumes_fixation.to_csv(OUTDATA_DIR / "grain-legumes-symbiotic-fixation-MgN.csv")
 grain_legumes_fixation
 
-#%%
+# %%
 herridge_table_2 = grainleg.calc_herridge_table_2(grain_legumes_results)
 herridge_table_2.to_csv(OUTDATA_DIR / "results-like-herridge-table-2.csv")
 herridge_table_2
 
-#%%
+# %%
 herridge_table_4 = grainleg.calc_herridge_table_4(grain_legumes_results)
 herridge_table_4.to_csv(OUTDATA_DIR / "results-like-herridge-table-4.csv")
 herridge_table_4
 
-#%%
+# %%
 nonsymbiotic_fixation = nonsymbiotic.estimate_fixation_MgN(
     fao_crop_data["Area_harvested_ha"]
 ).dropna(how="all")
 nonsymbiotic_fixation.to_csv(OUTDATA_DIR / "nonsymbiotic-fixation-MgN.csv")
 nonsymbiotic_fixation
 
-#%%
+# %%
 
 specific_summary_categories = {
     "Grain legumes": list(set(grain_legumes_fixation.dropna().index.unique("Item"))),
@@ -142,7 +142,7 @@ for category, names in specific_summary_categories.items():
     tr_crop_item_to_summary_category[names] = category
 tr_crop_item_to_summary_category
 
-#%%
+# %%
 
 tr_area_code_m49 = pd.read_csv(
     INDATA_DIR / "faostat_definitions_country_region_2022-10-01.csv",
@@ -155,7 +155,7 @@ def join_m49_code_and_write_csv(d, file_name):
     d.join(tr_area_code_m49, on="Area Code").to_csv(OUTDATA_DIR / file_name)
 
 
-#%%
+# %%
 summary_country_crop = (
     pd.concat(
         [
