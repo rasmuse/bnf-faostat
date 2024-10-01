@@ -87,15 +87,17 @@ fao_crop_data = pd.DataFrame(
     }
 )
 
-#%%
+# %%
 
 grain_legumes_results = grainleg.estimate_fixation(
-    fao_crop_data.loc[fao_crop_data["Production_Mg"] > 0]
+    fao_crop_data.loc[
+        (fao_crop_data["Production_Mg"] > 0) & (fao_crop_data["Area_harvested_ha"] > 0)
+    ]
 )
 grain_legumes_results
 
 
-#%%
+# %%
 grain_legumes_fixation = (
     grain_legumes_results["Crop_N_fixed_MgN"]
     .rename("Main")

@@ -64,7 +64,7 @@ fao_crop_data <- fao_production_data %>%
 
 source("grainleg.R")
 grainleg_fixation_all_results <- estimate_grainleg_fixation(
-    fao_crop_data %>% filter(Production.Mg > 0)
+    fao_crop_data %>% filter(Production.Mg > 0) %>% filter(Area.harvested.ha > 0)
 )
 
 grainleg_symbiotic_by_crop <- grainleg_fixation_all_results %>%
