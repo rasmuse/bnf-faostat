@@ -5,7 +5,9 @@
 - No fixation estimate for vegetable legumes (string beans, etc).
 - No fixation estimate for forage legumes due to lack of data on areas and harvests.
 
-This code was used to estimate cropland biological nitrogen fixation for the 2022 release of the FAOSTAT soil nutrient budgets (FAO 2022a, 2022b).
+This code was used to estimate cropland biological nitrogen fixation for the 2022-2024 releases of the FAOSTAT soil nutrient budgets (FAO 2022a, 2022b).
+
+In 2024, a minor adjustment was made to constrain harvest index (HI) values to the span [0.1, 0.5], based on the span of underlying HI data shown in the supplementary materials to the paper by Herridge et al. (2022). In a small number of instances, unusually low grain yields led to extreme results of the log(grain yield) calculation defined in the model by Herridge et al. (2022). This adjustment avoids negative BNF rates for individual crops. The change has a negligible effect on overall results for cropland BNF (< 0.01% difference globally).
 
 ## How to access the data
 
@@ -49,7 +51,7 @@ In addition, the Python code outputs a few more result summaries and a figure fo
 
 ## Python setup
 
-Developed using Python 3.9.6; should also work with newer versions.
+This version developed and tested on Python 3.11; should also work with newer versions.
 
 Dependencies are listed in `requirements.txt`.
 
