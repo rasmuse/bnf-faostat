@@ -8,6 +8,11 @@ import numpy as np
 
 INDATA_DIR = Path(__file__).parent / "indata"
 
+# Enforce min and max harvest index (not part of the original model)
+
+MIN_HI = 0.1
+MAX_HI = 0.5
+
 #%%
 
 # Mapping of crop names from Herridge et al. (2022) to FAOSTAT item codes
@@ -105,7 +110,13 @@ def get_HI(d):
     k = d["Crop Herridge et al."].map(k_dict)
     m = d["Crop Herridge et al."].map(m_dict)
 
-    return k * np.log(d["Yield_Mg_per_ha"]) + m
+    regression_estimate = k * np.log(d["Yield_Mg_per_ha"]) + m
+
+    # Enforce a minimum HI
+    result = regression_estimate.copy()
+    # result[result < MIN_HI] = MIN_HI
+    # result[result > MAX_HI] = MAX_HI
+    return result
 
 
 def get_shoot_DM(d):

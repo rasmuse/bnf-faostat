@@ -5,6 +5,11 @@ library(tidyverse)
 
 indata_dir <- "indata"
 
+# Enforce min and max harvest index (not part of the original model)
+
+MIN_HI <- 0.1
+MAX_HI <- 0.5
+
 # Mapping of crop names from Herridge et al. (2022) to FAOSTAT item codes
 
 tr_crops_fao_to_herridge <- read.csv(paste(
@@ -149,6 +154,8 @@ estimate_grainleg_fixation <- function(fao_crop_data) {
         mutate(Yield.Mg.per.ha = Production.Mg / Area.harvested.ha) %>%
         mutate(Log_yield_Mg_per_ha = log(Yield.Mg.per.ha)) %>%
         mutate(HI = apply_crop_regression(., "Log_yield_Mg_per_ha", HI_params)) %>%
+        mutate(HI = pmax(HI, MIN_HI)) %>%
+        mutate(HI = pmin(HI, MAX_HI)) %>%
         mutate(Shoot_DM_Mg = Production.Mg / HI) %>%
         mutate(Shoot_DM_yield_Mg_per_ha = Shoot_DM_Mg / Area.harvested.ha) %>%
         mutate(Shoot_N_concentration = apply_crop_regression(., "Shoot_DM_yield_Mg_per_ha", N_conc_params)) %>%
