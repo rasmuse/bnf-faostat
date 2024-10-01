@@ -114,8 +114,8 @@ def get_HI(d):
 
     # Enforce a minimum HI
     result = regression_estimate.copy()
-    # result[result < MIN_HI] = MIN_HI
-    # result[result > MAX_HI] = MAX_HI
+    result[result < MIN_HI] = MIN_HI
+    result[result > MAX_HI] = MAX_HI
     return result
 
 
