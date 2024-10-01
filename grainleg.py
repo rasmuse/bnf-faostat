@@ -247,7 +247,7 @@ def calc_herridge_table_4(result):
         )
         .groupby(["Year", "Legume category", "Region"])
         .sum(numeric_only=True)
-        .assign(Yield=lambda d: d["Production_Mg"] / d["Area_harvested_ha"])
+        .assign(Yield_Mg_per_ha=lambda d: d["Production_Mg"] / d["Area_harvested_ha"])
         .xs(2018, level="Year")
         .reindex(
             ["Soybean", "Groundnut", "Pulses"],
