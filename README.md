@@ -7,7 +7,7 @@
 
 This code was used to estimate cropland biological nitrogen fixation for the 2022-2024 releases of the FAOSTAT soil nutrient budgets (FAO 2022a, 2022b).
 
-In 2024, a minor adjustment was made to constrain harvest index (HI) values to the span [0.1, 0.5], based on the span of underlying HI data shown in the supplementary materials to the paper by Herridge et al. (2022). In a small number of instances, unusually low grain yields led to extreme results of the log(grain yield) calculation defined in the model by Herridge et al. (2022). This adjustment avoids negative BNF rates for individual crops. The change has a negligible effect on overall results for cropland BNF (< 0.01% difference globally).
+In 2024, a model adjustment was made to constrain harvest index (HI) values to the span [0.1, 0.5], based on the span of underlying HI data shown in the supplementary materials to the paper by Herridge et al. (2022). In a small number of instances, unusually low grain yields led to extreme results of the log(grain yield) calculation defined in the model by Herridge et al. (2022). This adjustment avoids negative and extremely high BNF rates for individual crops which makes a substantial relative difference in some countries. On the global level, however, the change has a negligible effect on overall results for cropland BNF (< 0.01% difference globally).
 
 ## How to access the data
 
@@ -15,7 +15,7 @@ The output dataset is open access, released under the Creative Commons Attributi
 
 If you use the data, please cite it:
 
-Einarsson, Rasmus. (2023). Biological nitrogen fixation in cropland (v1.3). Zenodo. [https://doi.org/10.5281/zenodo.7505978](https://doi.org/10.5281/zenodo.7505978)
+Einarsson, Rasmus. (2024). Biological nitrogen fixation in cropland (v1.4). Zenodo. [https://doi.org/10.5281/zenodo.7505978](https://doi.org/10.5281/zenodo.7505978)
 
 ## References
 
@@ -75,9 +75,12 @@ pip install -r requirements.txt
 
 ## R setup
 
-Developed using R version 3.6.3; should also work with newer versions.
+R package dependencies: tidyverse and readr.
 
-Dependencies: tidyverse (v1.3.2) and readr (v2.1.3).
+Tested using versions:
+- R v3.6.3, tidyverse v1.3.2, readr v2.1.3.
+- R v4.2.2, tidyverse v2.0.0, readr v2.1.5.
+
 
 ## Running it
 
