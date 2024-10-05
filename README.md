@@ -11,11 +11,11 @@ In 2024, a model adjustment was made to constrain harvest index (HI) values to t
 
 ## How to access the data
 
-The output dataset is open access, released under the Creative Commons Attribution 4.0 International License. Download here: [https://doi.org/10.5281/zenodo.7505978](https://doi.org/10.5281/zenodo.7505978)
+The output dataset is open access, released under the Creative Commons Attribution 4.0 International License. Download here: [https://doi.org/10.5281/zenodo.7133340](https://doi.org/10.5281/zenodo.7133340)
 
 If you use the data, please cite it:
 
-Einarsson, Rasmus. (2024). Biological nitrogen fixation in cropland (v1.4). Zenodo. [https://doi.org/10.5281/zenodo.7505978](https://doi.org/10.5281/zenodo.7505978)
+Einarsson, Rasmus. (2024). Biological nitrogen fixation in cropland (v1.4). Zenodo. [https://doi.org/10.5281/zenodo.7133340](https://doi.org/10.5281/zenodo.7133340)
 
 ## References
 
